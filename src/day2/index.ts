@@ -22,7 +22,6 @@ export const solveDay2A = async (path: string): Promise<number> => {
 
 export const solveDay2B = async (path: string): Promise<number> => {
   const data = await dataLoader(path)
-  // X means you need to lose, Y means you need to end the round in a draw, and Z means you need to win. Good luck!"
 
   return data.reduce((acc, curr) => {
     const [player2Literal, endResult] = curr.split(' ')
