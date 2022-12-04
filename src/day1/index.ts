@@ -1,4 +1,4 @@
-import { dataLoader } from 'src/utils/data-loader'
+import { dataLoader } from '@/utils/data-loader'
 
 export const solveDay1A = async (path: string) => {
   const data = await dataLoader(path)
