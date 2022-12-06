@@ -12,7 +12,7 @@ import { describe, expect, it } from 'vitest'
 const PATH = 'src/day3/test-input.txt'
 const FULL_PATH = 'src/day3/full-input.txt'
 
-describe('day2 A', () => {
+describe('day3 A', () => {
   it('should be defined', async () => {
     expect(solveDay3A).toBeDefined()
   })
