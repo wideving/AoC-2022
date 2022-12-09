@@ -1,10 +1,8 @@
 import {
   addBoxesToArray,
   addEmptyBoxes,
-  columnCount,
   getAllBoxes,
   getMoveInstructions,
-  reverseBoxes,
   solveDay5A,
   solveDay5B,
 } from '@/day5'
