@@ -23,7 +23,12 @@ export interface Folder {
   folders: Folder[]
 }
 
-export const solveDay7A = async (path: string): Promise<void> => {
+export interface WithinThresholdResult {
+  acceptedFolders: number[]
+  fileSize: number
+}
+
+export const solveDay7A = async (path: string): Promise<number> => {
   const data = await dataLoader(path)
   // delete initial cd / command
   data.splice(0, 1)
@@ -35,9 +40,69 @@ export const solveDay7A = async (path: string): Promise<void> => {
   }
 
   while (data.length > 0) {
-    const row = data.shift()
-    processCommand(parseCommand(row), root, data)
-    console.dir(root, { depth: null })
+    processCommand(parseCommand(data.shift()), root, data)
+  }
+
+  // root now contains the whole file system, we need to walk through it to find all
+  // folders with total size at most 100000
+  return findFoldersWithinThreshold(root, [], 100000).acceptedFolders.reduce(
+    (acc, curr) => acc + curr,
+    0,
+  )
+}
+
+export const solveDay7B = async (path: string): Promise<number> => {
+  const data = await dataLoader(path)
+  // delete initial cd / command
+  data.splice(0, 1)
+
+  const root: Folder = {
+    name: '/',
+    folders: [],
+    files: [],
+  }
+
+  while (data.length > 0) {
+    processCommand(parseCommand(data.shift()), root, data)
+  }
+
+  const { acceptedFolders, fileSize } = findFoldersWithinThreshold(
+    root,
+    [],
+    Number.MAX_VALUE,
+  )
+
+  const spaceAvailable = 70000000 - fileSize
+  const spaceNeeded = 30000000 - spaceAvailable
+  return acceptedFolders
+    .sort((a, b) => a - b)
+    .find((size) => size > spaceNeeded)!
+}
+
+export const findFoldersWithinThreshold = (
+  folder: Folder,
+  acceptedFolders: number[],
+  maxFolderSize = 100000,
+): WithinThresholdResult => {
+  let fileSize = folder.files.reduce((acc, curr) => acc + curr.size, 0)
+
+  for (const subfolder of folder.folders) {
+    const result = findFoldersWithinThreshold(
+      subfolder,
+      acceptedFolders,
+      maxFolderSize,
+    )
+    fileSize += result.fileSize
+  }
+
+  if (fileSize <= maxFolderSize) {
+    // foldersize are within limits
+    acceptedFolders.push(fileSize)
+  }
+
+  return {
+    acceptedFolders,
+    fileSize,
   }
 }
 
