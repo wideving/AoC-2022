@@ -1,4 +1,11 @@
-import { solveDay7A } from '@/day7'
+import {
+  getType,
+  parseCommand,
+  parseFile,
+  parseRow,
+  solveDay7A,
+  Type,
+} from '@/day7'
 import { describe, expect, it } from 'vitest'
 
 const PATH = 'src/day7/test-input.txt'
@@ -9,8 +16,25 @@ describe('day7 A', () => {
     expect(solveDay7A).toBeDefined()
   })
 
+  it('should return correct type', () => {
+    expect(getType('dir a')).toEqual(Type.folder)
+    expect(getType('234234234 b.txt')).toEqual(Type.file)
+  })
+
+  it('should correctly parse a file', () => {
+    expect(parseFile('234234234 b.txt')).toEqual({
+      name: 'b.txt',
+      size: 234234234,
+    })
+  })
+
+  it('should parse a command', () => {
+    expect(parseCommand('$ cd ..')).toEqual({ type: 'cd', args: '..' })
+    expect(parseCommand('$ ls')).toEqual({ type: 'ls', args: undefined })
+  })
+
   it('should return correct result from test data', async () => {
-    expect(await solveDay7A(PATH)).toEqual(5)
+    expect(await solveDay7A(PATH))
   })
 })
 
