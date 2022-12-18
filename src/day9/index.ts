@@ -30,9 +30,20 @@ export const solveDay9A = async (path: string): Promise<number> => {
     parseHeadMovement(curr, acc)
     return acc
   }, new Array<Point>({ x: 0, y: 0 }))
+  const tailMovements = getTailMovements(headMovements)
+  return getUniqueMovements(tailMovements).length
+}
+
+export const solveDay9B = async (path: string): Promise<number> => {
+  const data = await dataLoader(path)
+  const moves = data.map(parseMove)
+
+  const headMovements = moves.reduce((acc, curr) => {
+    parseHeadMovement(curr, acc)
+    return acc
+  }, new Array<Point>({ x: 0, y: 0 }))
 
   const tailMovements = getTailMovements(headMovements)
-
   return getUniqueMovements(tailMovements).length
 }
 

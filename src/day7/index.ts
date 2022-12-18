@@ -177,7 +177,3 @@ export const parseFile = (row: string): File => {
     size: Number(size),
   }
 }
-
-// export const solveDay7B = async (path: string): Promise<void> => {
-//   const data = await dataLoader(path)
-// }
