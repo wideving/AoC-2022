@@ -6,12 +6,10 @@ import {
   parseMove,
   Point,
   solveDay9A,
-  solveDay9B,
 } from '@/day9'
 import { describe, expect, it } from 'vitest'
 
 const PATH = 'src/day9/test-input.txt'
-const PATH_B = 'src/day9/test-b-input.txt'
 const FULL_PATH = 'src/day9/full-input.txt'
 
 describe('day9 A', () => {
