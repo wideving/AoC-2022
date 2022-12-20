@@ -21,6 +21,44 @@ export const solveDay10A = async (path: string): Promise<number> => {
   )
 }
 
+export const solveDay10B = async (path: string): Promise<string[]> => {
+  const data = await dataLoader(path)
+  const instructions = data.map((row) => parseInstructions(row))
+  const cycleValues = calculateCycles(instructions)
+
+  const CRT = [
+    cycleValues.splice(0, 40),
+    cycleValues.splice(0, 40),
+    cycleValues.splice(0, 40),
+    cycleValues.splice(0, 40),
+    cycleValues.splice(0, 40),
+    cycleValues.splice(0, 40),
+  ]
+
+  return [
+    drawRow(CRT[0]),
+    drawRow(CRT[1]),
+    drawRow(CRT[2]),
+    drawRow(CRT[3]),
+    drawRow(CRT[4]),
+    drawRow(CRT[5]),
+  ]
+}
+
+export const drawRow = (row: number[]): string => {
+  let drawing: string[] = []
+
+  row.forEach((sprite, index) => {
+    if ([sprite - 1, sprite, sprite + 1].includes(index)) {
+      drawing.push('#')
+    } else {
+      drawing.push('.')
+    }
+  })
+
+  return drawing.join('')
+}
+
 export const calculateCycles = (instructions: Instruction[]) => {
   const values: number[] = [1]
   instructions.reduce((acc, curr) => {

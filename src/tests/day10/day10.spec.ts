@@ -1,4 +1,9 @@
-import { parseInstructions, solveDay10A } from '@/day10'
+import {
+  calculateCycles,
+  parseInstructions,
+  solveDay10A,
+  solveDay10B,
+} from '@/day10'
 import { describe, expect, it } from 'vitest'
 
 const PATH = 'src/day10/test-input.txt'
@@ -17,6 +22,12 @@ describe('day10 A', () => {
     expect(await solveDay10A(FULL_PATH)).toEqual(14520)
   })
 
+  it('should calculateCycles', () => {
+    const instructions = ['noop', 'addx 3', 'addx -5'].map(parseInstructions)
+    const cycles = calculateCycles(instructions)
+    expect(cycles).toStrictEqual([1, 1, 1, 4, 4, -1])
+  })
+
   it('should parse rows to instrcutions', () => {
     expect(parseInstructions('addx -15')).toStrictEqual({
       type: 'addx',
@@ -32,6 +43,34 @@ describe('day10 A', () => {
       type: 'addx',
       cycles: 2,
       value: 10,
+    })
+  })
+
+  describe('day10 b', () => {
+    it('should be defined', () => {
+      expect(solveDay10B).toBeDefined()
+    })
+
+    it('should return correct result from test data', async () => {
+      expect(await solveDay10B(PATH)).toStrictEqual([
+        '##..##..##..##..##..##..##..##..##..##..',
+        '###...###...###...###...###...###...###.',
+        '####....####....####....####....####....',
+        '#####.....#####.....#####.....#####.....',
+        '######......######......######......####',
+        '#######.......#######.......#######.....',
+      ])
+    })
+
+    it('should return correct result from test data', async () => {
+      expect(await solveDay10B(FULL_PATH)).toStrictEqual([
+        '###..####.###...##..####.####...##.###..',
+        '#..#....#.#..#.#..#....#.#.......#.#..#.',
+        '#..#...#..###..#......#..###.....#.###..',
+        '###...#...#..#.#.##..#...#.......#.#..#.',
+        '#....#....#..#.#..#.#....#....#..#.#..#.',
+        '#....####.###...###.####.####..##..###..',
+      ])
     })
   })
 })
