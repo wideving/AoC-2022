@@ -4,9 +4,7 @@ import {
   solveDay6A,
   solveDay6B,
 } from '@/day6'
-import { dataLoader } from '@/utils/data-loader'
 import { describe, expect, it } from 'vitest'
-import { t } from 'vitest/dist/index-9f5bc072'
 
 const PATH = 'src/day6/test-input.txt'
 const FULL_PATH = 'src/day6/full-input.txt'

@@ -30,7 +30,7 @@ describe('day11 A', () => {
     expect(await solveDay11A(PATH)).toEqual(10605)
   })
 
-  it('should return correct result from test data', async () => {
+  it('should return correct result from full data', async () => {
     expect(await solveDay11A(FULL_PATH)).toEqual(112221)
   })
 })
