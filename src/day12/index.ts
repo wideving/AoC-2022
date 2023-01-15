@@ -40,7 +40,6 @@ export const solveDay12B = async (path: string): Promise<number> => {
     })
     .filter((value) => value !== 0)
     .sort()
-  console.log(steps)
   return steps[0]
 }
 
